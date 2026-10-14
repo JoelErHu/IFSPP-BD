@@ -1,0 +1,50 @@
+Usuario (id-usuario, nombre-usuario, email, fecha-registro, numero-telefonico, nombre, apellido, nacionalidad)
+    PK: {id-usuario}
+
+Artista (id-artista, email, fecha-registro, nombre-artista, nacionalidad)
+    PK: {id-artista}
+
+Album (id-album, nombre, fecha-publicacion)
+    PK: {id-album}
+
+Cancion(id-cancion, nombre, fecha-publicacion, duracion, id-categoria, id-album)
+    PK: {id-cancion}
+    FK: {id-categoria} Categoria(id-categoria)
+    FK: {id-album} Album(id-album)
+
+Sesion (id-sesion, fecha-inicio, fecha-final, dispositivo, ubicacion, id-usuario)
+    PK: {id-sesion}
+    Fk: {id-usuario} Usuario(id-usuario)
+
+Categoria (id-categoria, nombre, descripcion)
+    PK: {id-categoria}
+
+Favorito-Album (id-usuario, id-album, fecha-favorito-album)
+    PK (id-usuario, id-album)
+    FK: {id-usuario} Usuario(id-usuario)
+    FK: {id-album} Album(id-album)
+
+Favorito-Cancion (id-usuario, id-cancion, fecha-favorito-cancion)
+    PK (id-usuario, id-cancion)
+    FK: {id-usuario} Usuario(id-usuario)
+    FK: {id-cancion} Cancion(id-cancion)
+
+Reproducida (id-sesion, id-cancion, hora-reproduccion, fecha-reproduccion, tiempo-reproduccion)
+    PK: {id-sesion, id-cancion, hora-reproduccion, fecha-reproduccion}
+    FK: {id-sesion} Sesion(id-sesion)
+    FK: {id-cancion} Cancion(id-cancion)
+
+Sigue (id-usuario, id-artista)
+    PK: {id-usuario, id-artista}
+    FK: {id-usuario} Usuario(id-usuario)
+    Fk: {id-artista} Artista(id-artista)
+
+Crea (id-artista, id-album)
+    PK: {id-artista, id-album}
+    FK: {id-artista} Artista(id-artista)
+    FK: {id-album} Album(id-album)
+
+Compone (id-artista, id-cancion)
+    PK: {id-artista, id-cancion}
+    FK: {id-artista} Artista(id-artista)
+    FK: {id-cancion} Cancion(id-cancion)
