@@ -437,10 +437,16 @@
           <mxGeometry height="60" width="120" x="-750" y="540" as="geometry" />
         </mxCell>
         <mxCell id="0_EPPbi5Qcw3TXbcVxWK-17" edge="1" parent="1" source="0_EPPbi5Qcw3TXbcVxWK-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;endArrow=none;endFill=0;" target="SkRzxbeNOi4TwvwsuDVK-61">
-          <mxGeometry relative="1" as="geometry" />
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-610" y="80" />
+              <mxPoint x="-610" y="-50" />
+              <mxPoint x="-349" y="-50" />
+            </Array>
+          </mxGeometry>
         </mxCell>
         <mxCell id="0_EPPbi5Qcw3TXbcVxWK-14" parent="1" style="shape=rhombus;perimeter=rhombusPerimeter;whiteSpace=wrap;html=1;align=center;" value="Origen" vertex="1">
-          <mxGeometry height="60" width="120" x="-910" y="50" as="geometry" />
+          <mxGeometry height="60" width="120" x="-810" y="50" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
