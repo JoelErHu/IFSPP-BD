@@ -1,0 +1,183 @@
+set search_path to mdJ_streaming2;
+
+--Las tablas de entidades fuertes
+
+create table pais (
+	codigo_pais char(2)
+		constraint nn_codigo_pais not null
+		constraint pk_codigo_pais primary key,
+	nombre_pais varchar(15)
+		constraint uq_nombre_pais unique
+);
+
+create table categoria (
+	id_categoria int
+		constraint nn_id_categoria not null
+		constraint pk_id_categoria primary key,
+	nombre varchar(15)
+		constraint nn_nombre_categoria not null
+		constraint uq_nombre_categoria unique,
+	descripcion varchar(100)
+);
+
+create table usuario (
+	id_usuario int
+		constraint nn_id_usuario not null
+		constraint pk_usuario primary key,
+	nombre_usuario varchar(20)
+		constraint uq_nombre_usuario unique,
+	email varchar(30)
+		constraint uq_email_usuario unique,
+	fecha_registro date
+		constraint nn_fecha_registro_usuario not null
+		check (fecha_registro <= current_date),
+	fecha_nacimiento date
+		constraint nn_fecha_nacimiento not null
+		check (fecha_nacimiento < current_date),
+	nombre varchar(20)
+		constraint nn_nombre not null,
+	apellido varchar (20)
+		constraint nn_apellido not null,
+	codigo_pais char(2)
+		constraint nn_codigo_pais_usuario not null
+		constraint fk_codigo_pais_usuario references pais(codigo_pais)
+);
+
+create table artista (
+	id_artista int
+		constraint nn_id_artista not null
+		constraint pk_id_artista primary key,
+	email varchar(30)
+		constraint uq_email_artista unique,
+	fecha_registro date
+		constraint nn_fecha_registro_artista not null,
+	nombre_artista varchar(20)
+		constraint nn_nombre_artista not null,
+	codigo_pais char(2)
+		constraint nn_codigo_pais_artista not null
+		constraint fk_codigo_pais_artista references pais(codigo_pais)
+);
+
+create table album (
+	id_album int
+		constraint nn_id_album not null
+		constraint pk_id_album primary key,
+	nombre varchar(20)
+		constraint nn_nombre not null ,
+	fecha_publicacion date 
+		constraint nn_fecha_publicacion not null
+		check (fecha_publicacion <= current_date)
+);
+
+create table cancion (
+	id_cancion int
+		constraint nn_id_cancion not null
+		constraint pk_id_cancion primary key, 
+	nombre varchar(20)
+		constraint nn_nombre not null,
+	fecha_publicacion date 
+		constraint nn_fecha_publicacion not null
+		check (fecha_publicacion <= current_date),
+	duracion int
+		constraint nn_duracion not null
+		check (duracion > 0),
+	id_categoria int 
+		constraint nn_id_categoria not null
+		constraint fk_id_categoria references categoria(id_categoria),
+	id_album int
+		constraint nn_id_album not null
+		constraint fk_id_album references album(id_album)
+);
+
+create table sesion (
+	id_sesion int
+		constraint nn_id_sesion not null
+		constraint pk_id_sesion primary key,
+	fecha_inicio timestamp 
+		constraint nn_fecha_inicio not null,
+	fecha_final timestamp,
+	dispositivo varchar(15)
+		constraint nn_dispositivo not null
+	 	check (dispositivo in ('Celular', 'Computadora', 'Tablet')),
+	id_usuario int
+		constraint nn_id_usuario not null
+		constraint fk_id_usuario references usuario(id_usuario),
+	check (fecha_final is null or fecha_final >= fecha_inicio)
+);
+
+
+--Las tablas de entidades debiles
+
+create table favorito_album (
+	id_usuario int
+		constraint nn_id_usuario_fav_album not null
+		constraint fk_id_usuario_fav_album references usuario(id_usuario),
+	id_album int
+		constraint nn_id_album_fav_album not null
+		constraint fk_id_album_fav_album references album(id_album),
+	fecha_favorito_album date
+		constraint nn_fecha_fav_album not null
+		check (fecha_favorito_album <= current_date),
+	constraint pk_favorito_album primary key (id_usuario, id_album)
+);
+
+create table favorito_cancion (
+	id_usuario int
+		constraint nn_id_usuario_fav_cancion not null
+		constraint fk_id_usuario_fav_cancion references usuario(id_usuario),
+	id_cancion int
+		constraint nn_id_cancion_fav_cancion not null
+		constraint fk_id_cancion_fav_cancion references cancion(id_cancion),
+	fecha_favorito_cancion date
+		constraint nn_fecha_fav_cancion not null
+		check (fecha_favorito_cancion <= current_date),
+	constraint pk_favorito_cancion primary key (id_usuario, id_cancion)
+);
+
+create table reproducida (
+	id_sesion int
+		constraint nn_id_sesion_reproducida not null
+		constraint fk_id_sesion_reproducida references sesion(id_sesion),
+	id_cancion int
+		constraint nn_id_cancion_reproducida not null
+		constraint fk_id_cancion_reproducida references cancion(id_cancion),
+	hora_reproduccion time
+		constraint nn_hora_reproduccion not null,
+	fecha_reproduccion date
+		constraint nn_fecha_reproduccion not null
+		check (fecha_reproduccion <= current_date),
+	tiempo_reproduccion int
+		constraint nn_tiempo_reproduccion not null
+		check (tiempo_reproduccion >= 0),
+	constraint pk_reproducida primary key (id_sesion, id_cancion, hora_reproduccion, fecha_reproduccion)
+);
+
+create table sigue (
+	id_usuario int
+		constraint nn_id_usuario_sigue not null
+		constraint fk_id_usuario_sigue references usuario(id_usuario),
+	id_artista int
+		constraint nn_id_artista_sigue not null
+		constraint fk_id_artista_sigue references artista(id_artista),
+	constraint pk_sigue primary key (id_usuario, id_artista)
+);
+
+create table crea (
+	id_artista int
+		constraint nn_id_artista_crea not null
+		constraint fk_id_artista_crea references artista(id_artista),
+	id_album int
+		constraint nn_id_album_crea not null
+		constraint fk_id_album_crea references album(id_album),
+	constraint pk_crea primary key (id_artista, id_album)
+);
+
+create table compone (
+	id_artista int
+		constraint nn_id_artista_compone not null
+		constraint fk_id_artista_compone references artista(id_artista),
+	id_cancion int
+		constraint nn_id_cancion_compone not null
+		constraint fk_id_cancion_compone references cancion(id_cancion),
+	constraint pk_compone primary key (id_artista, id_cancion)
+);

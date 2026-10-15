@@ -1,13 +1,16 @@
-Usuario (id_usuario, nombre_usuario, email, fecha_registro, fecha_nacimiento, nombre, apellido, nacionalidad)
+Usuario (id_usuario, nombre_usuario, email, fecha_registro, fecha_nacimiento, nombre, apellido, codigo_pais)
     PK: {id_usuario}
+    FK: {codigo_pais} Pais(codigo_pais)
     UNIQUE: {email}, {nombre_usuario}
-    NOT NULL: {id_usuario, fecha_registro, fecha_nacimiento nombre, apellido}
+    NOT NULL: {id_usuario, fecha_registro, fecha_nacimiento, nombre, apellido, codigo_pais}
+    CHECK: fecha_registro <= CURRENT_DATE
     CHECK: fecha_nacimiento < CURRENT_DATE
 
-Artista (id_artista, email, fecha_registro, nombre_artista, nacionalidad)
+Artista (id_artista, email, fecha_registro, nombre_artista, codigo_pais)
     PK: {id_artista}
-    UNIQUE {email}
-    NOT NULL: {id_artista, email, fecha_registro, nombre_artista}
+    FK: {codigo_pais} Pais(codigo_pais)
+    UNIQUE: {email}
+    NOT NULL: {id_artista, email, fecha_registro, nombre_artista, codigo_pais}
 
 Album (id_album, nombre, fecha_publicacion)
     PK: {id_album}
@@ -20,11 +23,16 @@ Cancion(id_cancion, nombre, fecha_publicacion, duracion, id_categoria, id_album)
     NOT NULL: {id_cancion, nombre, fecha_publicacion, duracion, id_categoria}
     CHECK: duracion > 0
 
-Sesion (id_sesion, fecha_inicio, fecha_final, dispositivo, ubicacion, id_usuario)
+Sesion (id_sesion, fecha_inicio, fecha_final, dispositivo, id_usuario)
     PK: {id_sesion}
     FK: {id_usuario} Usuario(id_usuario)
     NOT NULL: {id_sesion, fecha_inicio, dispositivo, id_usuario}
     CHECK: fecha_final IS NULL OR fecha_final >= fecha_inicio
+    CHECK: dispositivo IN ('Celular', 'Computadora', 'Tablet')
+
+Pais (codigo_pais, nombre_pais)
+    PK: {codigo_pais}
+    UNIQUE: {nombre_pais}
 
 Categoria (id_categoria, nombre, descripcion)
     PK: {id_categoria}
