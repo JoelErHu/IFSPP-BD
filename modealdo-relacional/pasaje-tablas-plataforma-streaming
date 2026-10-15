@@ -1,0 +1,69 @@
+Usuario (id_usuario, nombre_usuario, email, fecha_registro, fecha_nacimiento, nombre, apellido, nacionalidad)
+    PK: {id_usuario}
+    UNIQUE: {email}, {nombre_usuario}
+    NOT NULL: {id_usuario, fecha_registro, fecha_nacimiento nombre, apellido}
+    CHECK: fecha_nacimiento < CURRENT_DATE
+
+Artista (id_artista, email, fecha_registro, nombre_artista, nacionalidad)
+    PK: {id_artista}
+    UNIQUE {email}
+    NOT NULL: {id_artista, email, fecha_registro, nombre_artista}
+
+Album (id_album, nombre, fecha_publicacion)
+    PK: {id_album}
+    NOT NULL: {id_album, nombre, fecha_publicacion}
+
+Cancion(id_cancion, nombre, fecha_publicacion, duracion, id_categoria, id_album)
+    PK: {id_cancion}
+    FK: {id_categoria} Categoria(id_categoria)
+    FK: {id_album} Album(id_album)
+    NOT NULL: {id_cancion, nombre, fecha_publicacion, duracion, id_categoria}
+    CHECK: duracion > 0
+
+Sesion (id_sesion, fecha_inicio, fecha_final, dispositivo, ubicacion, id_usuario)
+    PK: {id_sesion}
+    FK: {id_usuario} Usuario(id_usuario)
+    NOT NULL: {id_sesion, fecha_inicio, dispositivo, id_usuario}
+    CHECK: fecha_final IS NULL OR fecha_final >= fecha_inicio
+
+Categoria (id_categoria, nombre, descripcion)
+    PK: {id_categoria}
+    UNIQUE: {nombre}
+    NOT NULL: {id_categoria, nombre}
+
+Favorito_Album (id_usuario, id_album, fecha_favorito_album)
+    PK (id_usuario, id_album)
+    FK: {id_usuario} Usuario(id_usuario)
+    FK: {id_album} Album(id_album)
+    NOT NULL: {id_usuario, id_album, fecha_favorito_album}
+
+Favorito_Cancion (id_usuario, id_cancion, fecha_favorito_cancion)
+    PK (id_usuario, id_cancion)
+    FK: {id_usuario} Usuario(id_usuario)
+    FK: {id_cancion} Cancion(id_cancion)
+    NOT NULL: {id_usuario, id_cancion, fecha_favorito_cancion}
+
+Reproducida (id_sesion, id_cancion, hora_reproduccion, fecha_reproduccion, tiempo_reproduccion)
+    PK: {id_sesion, id_cancion, hora_reproduccion, fecha_reproduccion}
+    FK: {id_sesion} Sesion(id_sesion)
+    FK: {id_cancion} Cancion(id_cancion)
+    NOT NULL: {id_sesion, id_cancion, hora_reproduccion, fecha_reproduccion, tiempo_reproduccion}
+    CHECK: tiempo_reproduccion >= 0
+
+Sigue (id_usuario, id_artista)
+    PK: {id_usuario, id_artista}
+    FK: {id_usuario} Usuario(id_usuario)
+    FK: {id_artista} Artista(id_artista)
+    NOT NULL: {id_usuario, id_artista}
+
+Crea (id_artista, id_album)
+    PK: {id_artista, id_album}
+    FK: {id_artista} Artista(id_artista)
+    FK: {id_album} Album(id_album)
+    NOT NULL: {id_artista, id_album}
+
+Compone (id_artista, id_cancion)
+    PK: {id_artista, id_cancion}
+    FK: {id_artista} Artista(id_artista)
+    FK: {id_cancion} Cancion(id_cancion)
+    NOT NULL: {id_artista, id_cancion}
