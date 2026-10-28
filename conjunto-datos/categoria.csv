@@ -1,0 +1,23 @@
+id_categoria,nombre,descripcion
+1,afrobeats,"Fusión de ritmos africanos (highlife, fuji, jùjú) con pop y electrónica."
+2,ambient,"Música atmosférica, sin pulso marcado, pensada para escucha de fondo."
+3,blues,"Forma vocal e instrumental afroamericana, raíz del rock y del jazz."
+4,classical,"Música académica occidental, del Barroco a la contemporánea."
+5,country,"Tradición rural estadounidense con guitarra acústica, violín y narrativa."
+6,electronic,"Música producida con sintetizadores, samplers y cajas de ritmo."
+7,folk,"Música tradicional o acústica de autor, con raíces regionales."
+8,gaming,Música para videojuegos y playlists asociadas a la cultura gamer.
+9,hip-hop,"Rap sobre bases rítmicas, con peso del sample y de la lírica."
+10,indie,"Producción independiente, habitualmente fuera de los grandes sellos."
+11,j-pop,"Pop japonés contemporáneo, con melodías pegadizas y alta producción."
+12,jazz,"Improvisación y armonía extendida, nacida en comunidades afroamericanas."
+13,k-pop,"Pop surcoreano de grupos e ídolos, con coreografía y alcance global."
+14,latin,"Música latinoamericana y caribeña: reguetón, salsa, cumbia y bachata."
+15,lofi,"Hip-hop instrumental relajado, con texturas y ruido de fondo."
+16,metal,"Rock pesado con guitarras distorsionadas, batería contundente y voces intensas."
+17,pop,"Música popular de estructura simple, estribillo memorable y amplia difusión."
+18,punk,"Rock rápido y crudo, con actitud independiente y letras directas."
+19,r&b,"Rhythm and blues: soul, funk y pop con foco en la voz y el groove."
+20,reggae,Ritmo jamaiquino con offbeat característico y temática social.
+21,rock,"Guitarras eléctricas, batería y bajo; amplio espectro desde los años 50."
+22,soul,"Música afroamericana con voces expresivas, gospel y grooves cálidos."
