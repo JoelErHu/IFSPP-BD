@@ -112,6 +112,12 @@ create table sesion (
 	check (fecha_final is null or fecha_final >= fecha_inicio)
 );
 
+--Índice único parcial: una sola sesión abierta por usuario y dispositivo.
+--También sirve de índice para la búsqueda por id_usuario del procedimiento.
+create unique index uq_sesion_abierta_dispositivo
+	on sesion (id_usuario, dispositivo)
+	where fecha_final is null;
+
 
 --Las tablas de entidades debiles
 
